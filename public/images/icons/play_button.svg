@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="play" viewBox="0 0 120 120">
+    <defs>
+        <style>
+            .cls-1{fill:#fafbfb}
+        </style>
+    </defs>
+    <path id="Path_4473" d="M60 0a60 60 0 1 0 60 60A60.087 60.087 0 0 0 60 0zm0 114.851A54.851 54.851 0 1 1 114.851 60 54.847 54.847 0 0 1 60 114.851z" class="cls-1" data-name="Path 4473"/>
+    <path id="Path_4474" d="M24 70.857l39.8-27.128L24 16.6z" class="cls-1" data-name="Path 4474" transform="translate(23.525 16.271)"/>
+</svg>
