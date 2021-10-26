@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import Modal from '@material-ui/core/Modal';
 import MovieModal from './MovieModal';
 
-const Movie = ({movie}) => {
-    // Config the modal of material-ui
+const Movie = ({movie, sessions}) => {
     const [showModal, setShowModal] = useState(false);
-    let { name, src } = movie;
-
+    // console.log(movie);
+    let { id, name, src, duration, classification } = movie;
+    let filter = sessions.filter(session => session.movieId === id);
+    console.log(filter);
+    
     return ( 
         <>
         <div className="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
@@ -25,9 +26,12 @@ const Movie = ({movie}) => {
 
                 <div className="block2-txt flex-w flex-t p-t-14">
                     <div className="block2-txt-child1 flex-col-l ">
-                        <a href="movie-detail.html" className="mtext-114 cl2 hov-cl1 trans-04 js-name-b2 p-b-6">
+                        <a href="movie-detail.html" className="mtext-114 cl2 hov-cl1 trans-04 p-b-6">
                             {name}
                         </a>
+                        <p className="stext-102 cl2">
+                            {`${classification} | ${duration} MIN`}
+                        </p>
                     </div>
                 </div>
             </div>

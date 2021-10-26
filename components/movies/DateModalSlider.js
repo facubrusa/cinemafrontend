@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import Date from './Date';
+import DateItem from './DateItem';
 import ButtonShowtime from './ButtonShowtime';
 
 function SampleNextArrow(props) {
@@ -82,26 +82,28 @@ const DateModalSlider = () => {
         {id: 7, date: '2021-10-25', showtimes: [{id: 1, time: '07:00 AM'},{id: 2, time: '09:00 AM'},{id: 3, time: '01:00 PM'},{id: 4, time: '05:00 PM'},]}
     ];
 
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
     const [activeDate, setActiveDate] = useState(dates[0].date);
-    console.log(activeDate);
+    // console.log(activeDate);
 
     const today = dates.filter(date => date.date === activeDate);
-    console.log(today);
 
     const showtimes = (today.length > 0) ? today[0].showtimes : [];
 
-    return ( 
+    return (    
         <>
             <Slider {...settings}>
                 { dates.map(date => (
-                    <Date 
+                    <DateItem 
                         key={date.id}
+                        days={days}
                         date={date}
                     />
                 ))}
             </Slider>
 
-            { showtimes.length > 0 ? (
+            {/* { showtimes.length > 0 ? (
                 <div className="flex-w flex-sb-m p-b-10">
                     <div className="flex-w flex-m justify-content-center">
                         { showtimes.map(showtime => (
@@ -109,11 +111,10 @@ const DateModalSlider = () => {
                                 key={showtime.id}
                                 showtime={showtime}
                             />
-                            
                         ))}
                     </div>
                 </div>
-            ) : null }
+            ) : null } */}
 
             
         </>

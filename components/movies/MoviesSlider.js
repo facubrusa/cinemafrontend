@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Slider from "react-slick";
 import Movie from './Movie';
 import "slick-carousel/slick/slick.css";
@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import UseFilterCategory from '../../hooks/useFilterCategory';
+import MovieContext from '../../context/movies/MovieContext';
 
 function SampleNextArrow(props) {
     const { onClick } = props;
@@ -30,34 +31,27 @@ function SamplePrevArrow(props) {
 }
 
 const MoviesSlider = () => {
-
+    // Extract the movies from initial state
+    const movieContext = useContext(MovieContext);
+    const { movies, sessions, getMovies, getSessions } = movieContext;
 
     const [listMovies, setListMovies] = useState([]);
     const { category, FilterCategoryUI } = UseFilterCategory();
 
-    const movies = [
-        {id: 1, src: 'images/posters/candy-man.jpg', name: 'Candyman', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'showing'},
-        {id: 2, src: 'images/posters/clue.jpg', name: 'Clue', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'showing'},
-        {id: 3, src: 'images/posters/free-guy.jpg', name: 'Free Guy', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'showing'},
-        {id: 4, src: 'images/posters/halloween-kills.jpg', name: 'Hallowen kills', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'showing'},
-        {id: 5, src: 'images/posters/no-time-to-die.jpg', name: 'No time to die', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'showing'},
-        {id: 6, src: 'images/posters/shang-chi.jpg', name: 'Shang-chi', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'showing'},
-        {id: 7, src: 'images/posters/shaun-of-the-dead.jpg', name: 'Shaun of the dead', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'showing'},
-        {id: 8, src: 'images/posters/the-addams-family-2.jpg', name: 'The addams family 2', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'showing'},
-        {id: 9, src: 'images/posters/the-many-saints.jpg', name: 'The many saints', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'top'},
-        {id: 10, src: 'images/posters/venom.jpg', name: 'Venom', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'coming'},
-        {id: 11, src: 'images/posters/eternals.jpg', name: 'Eternals', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'coming'},
-        {id: 12, src: 'images/posters/the-doors.jpg', name: 'The doors', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'coming'},
-        {id: 13, src: 'images/posters/dune.jpg', name: 'Dune', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'coming'},
-        {id: 14, src: 'images/posters/dune.jpg', name: 'Dune', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'top'},
-        {id: 15, src: 'images/posters/eternals.jpg', name: 'Eternals', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', category: 'top'}
-    ];
-
+    
     useEffect(() => {
+        const d = new Date();
+        const dd = String(d.getDate()).padStart(2, '0');
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const yyyy = d.getFullYear();
+        const today = yyyy + '-' + mm + '-' + dd;
+
+        if(movies.length === 0) getMovies(today);
+        if(sessions.length === 0) getSessions(today);
+
         const filter = movies.filter(movie => movie.category === category);
         setListMovies(filter);
-    }, [category]);
-
+    }, [movies, category]);
 
     let infiniteStatus = (listMovies.length > 3) ? true : false;
     const settings = {
@@ -102,9 +96,24 @@ const MoviesSlider = () => {
         ]
     };
 
+    if(movies.length === 0) return (
+        <section className="p-t-130 p-b-130">
+            <div className="container">
+                <h2 className="text-center">
+                    No movies to show, come back later :c
+                </h2>
+            </div>
+        </section>
+    )
+
     return ( 
         <section className="bg0 p-t-45 p-b-140">
             <div className="container">
+                {/* <div className="p-t-20">
+                    <Slider {...settings}>
+                        
+                    </Slider>
+                </div> */}
                 {/* Tab01 */}
                 <div className="tab01">
                     {/* Nav tabs */}
@@ -115,14 +124,24 @@ const MoviesSlider = () => {
                     <div className="tab-content p-t-40">
                         <div className="tab-pane fade show active">
                             {/* Slide2 */}
-                            <Slider {...settings}>
-                                { listMovies.map(movie => (
-                                    <Movie 
-                                        key={movie.id}
-                                        movie={movie}
-                                    />
-                                ))}
-                            </Slider>
+                            {listMovies.length === 0 ? (
+                                <div className="p-t-100 p-b-100">
+                                    <h2 className="text-center">
+                                        No movies to show, come back later :c
+                                    </h2>
+                                </div>
+                            ) : (
+                                <Slider {...settings}>
+                                    { listMovies.map(movie => (
+                                        <Movie 
+                                            key={movie.id}
+                                            movie={movie}
+                                            sessions={sessions}
+                                        />
+                                    ))}
+                                </Slider>
+                            )}
+                            
                         </div>
                     </div>
                 </div>
