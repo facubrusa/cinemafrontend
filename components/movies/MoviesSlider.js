@@ -33,25 +33,20 @@ function SamplePrevArrow(props) {
 const MoviesSlider = () => {
     // Extract the movies from initial state
     const movieContext = useContext(MovieContext);
-    const { movies, sessions, getMovies, getSessions } = movieContext;
+    const { movies, sessions, dateselected, getMovies, getSessions } = movieContext;
 
     const [listMovies, setListMovies] = useState([]);
     const { category, FilterCategoryUI } = UseFilterCategory();
 
     
     useEffect(() => {
-        const d = new Date();
-        const dd = String(d.getDate()).padStart(2, '0');
-        const mm = String(d.getMonth() + 1).padStart(2, '0');
-        const yyyy = d.getFullYear();
-        const today = yyyy + '-' + mm + '-' + dd;
-
-        if(movies.length === 0) getMovies(today);
-        if(sessions.length === 0) getSessions(today);
-
-        const filter = movies.filter(movie => movie.category === category);
-        setListMovies(filter);
-    }, [movies, category]);
+        if(movies.length === 0) getMovies(dateselected);
+        if(sessions.length === 0) getSessions(dateselected);
+        if(movies.length > 0) {
+            const filter = movies.filter(movie => movie.category === category);
+            setListMovies(filter);
+        }
+    }, [dateselected, movies, category]);
 
     let infiniteStatus = (listMovies.length > 3) ? true : false;
     const settings = {
@@ -104,19 +99,12 @@ const MoviesSlider = () => {
                 </h2>
             </div>
         </section>
-    )
+    );
 
     return ( 
         <section className="bg0 p-t-45 p-b-140">
             <div className="container">
-                {/* <div className="p-t-20">
-                    <Slider {...settings}>
-                        
-                    </Slider>
-                </div> */}
-                {/* Tab01 */}
                 <div className="tab01">
-                    {/* Nav tabs */}
                     
                     { FilterCategoryUI() }
 
@@ -136,7 +124,6 @@ const MoviesSlider = () => {
                                         <Movie 
                                             key={movie.id}
                                             movie={movie}
-                                            sessions={sessions}
                                         />
                                     ))}
                                 </Slider>

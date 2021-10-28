@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import MovieModal from './MovieModal';
+import MovieContext from '../../context/movies/MovieContext';
 
-const Movie = ({movie, sessions}) => {
+const Movie = ({movie}) => {
+    const movieContext = useContext(MovieContext);
+    const { selectMovie } = movieContext;
+
     const [showModal, setShowModal] = useState(false);
-    // console.log(movie);
     let { id, name, src, duration, classification } = movie;
-    let filter = sessions.filter(session => session.movieId === id);
-    console.log(filter);
-    
+
     return ( 
         <>
         <div className="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
@@ -19,6 +20,7 @@ const Movie = ({movie, sessions}) => {
                         href="#" 
                         className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
                         onClick={() => {
+                            selectMovie(id);
                             setShowModal(true);
                         }}
                     >Quick View</a>
