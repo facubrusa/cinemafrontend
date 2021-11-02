@@ -6,7 +6,8 @@ import {
     GET_SESSIONS,
     SET_MOVIE,
     CLEAR_MOVIE,
-    SET_DATE
+    SET_DATE,
+    SET_TODAY
 } from '../../types/index';
 
 const MovieState = ({children}) => {
@@ -22,7 +23,8 @@ const MovieState = ({children}) => {
         movies: [],
         sessions: [],
         movieselected: null,
-        dateselected: today
+        dateselected: today,
+        today: today
     };
 
     const [state, dispatch] = useReducer(MovieReducer, initialState);
@@ -60,18 +62,18 @@ const MovieState = ({children}) => {
     const getSessions = async (date) => {
         // Get functions from tbl_functions and filter for movieId
         const sessions = [
-            {id: 1, date: '2021-10-27', time: '17:30', movieId: 1, start: '2021-10-27T17:30:00'},
-            {id: 2, date: '2021-10-27', time: '19:00', movieId: 1, start: '2021-10-27T19:00:00'},
-            {id: 3, date: '2021-10-27', time: '22:00', movieId: 1, start: '2021-10-27T22:00:00'},
-            {id: 4, date: '2021-10-27', time: '23:00', movieId: 1, start: '2021-10-27T23:00:00'},
-            {id: 5, date: '2021-10-28', time: '18:30', movieId: 1, start: '2021-10-27T18:30:00'},
-            {id: 6, date: '2021-10-28', time: '23:00', movieId: 1, start: '2021-10-27T23:00:00'},
-            {id: 7, date: '2021-10-29', time: '19:30', movieId: 1, start: '2021-10-27T19:30:00'},
-            {id: 8, date: '2021-10-29', time: '23:30', movieId: 1, start: '2021-10-27T23:30:00'},
-            {id: 9, date: '2021-10-30', time: '20:30', movieId: 1, start: '2021-10-27T20:30:00'},
-            {id: 10, date: '2021-10-27', time: '17:30', movieId: 2, start: '2021-10-27T17:30:00'},
-            {id: 11, date: '2021-10-27', time: '19:00', movieId: 2, start: '2021-10-27T19:00:00'},
-            {id: 12, date: '2021-10-28', time: '22:00', movieId: 2, start: '2021-10-27T22:00:00'}
+            {id: 1, date: '2021-11-01', time: '17:30:00', movieId: 1, start: '2021-11-01T17:30:00'},
+            {id: 2, date: '2021-11-01', time: '19:00:00', movieId: 1, start: '2021-11-01T19:00:00'},
+            {id: 3, date: '2021-11-01', time: '22:00:00', movieId: 1, start: '2021-11-01T22:00:00'},
+            {id: 4, date: '2021-11-01', time: '23:00:00', movieId: 1, start: '2021-11-01T23:00:00'},
+            {id: 5, date: '2021-11-02', time: '18:30:00', movieId: 1, start: '2021-11-02T18:30:00'},
+            {id: 6, date: '2021-11-02', time: '23:00:00', movieId: 1, start: '2021-11-02T23:00:00'},
+            {id: 7, date: '2021-11-02', time: '19:30:00', movieId: 1, start: '2021-11-02T19:30:00'},
+            {id: 8, date: '2021-11-03', time: '23:30:00', movieId: 1, start: '2021-11-03T23:30:00'},
+            {id: 9, date: '2021-11-03', time: '20:30:00', movieId: 1, start: '2021-11-03T20:30:00'},
+            {id: 10, date: '2021-11-01', time: '17:30:00', movieId: 2, start: '2021-11-01T17:30:00'},
+            {id: 11, date: '2021-11-02', time: '19:00:00', movieId: 2, start: '2021-11-02T19:00:00'},
+            {id: 12, date: '2021-11-03', time: '22:00:00', movieId: 2, start: '2021-11-03T22:00:00'}
         ];
 
         // Simulating query
@@ -79,9 +81,7 @@ const MovieState = ({children}) => {
             dispatch({
                 type: GET_SESSIONS,
                 payload: sessions
-            });
-
-            
+            });            
         }, 3000);
     }
 
@@ -99,6 +99,12 @@ const MovieState = ({children}) => {
         });
     }
 
+    const setToday = () => {
+        dispatch({
+            type: SET_TODAY
+        });
+    }
+
     return (
         <MovieContext.Provider
             value={{
@@ -109,7 +115,8 @@ const MovieState = ({children}) => {
                 getMovies,
                 getSessions,
                 selectMovie,
-                setDate
+                setDate,
+                setToday
             }}
         >
             {children}

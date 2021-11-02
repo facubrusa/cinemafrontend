@@ -5,7 +5,7 @@ const ButtonShowtime = ({showtime}) => {
     return ( 
         <button
             className="flex-c-m mtext-101 cl0 size-126 bg1 bor1 hov-btn1 p-lr-15 trans-04 mr-3 mt-3"
-        >{time}</button>
+        >{time.substr(0, 5)}</button>
     );
 }
  

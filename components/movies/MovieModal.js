@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import DateModalSlider from './DateModalSlider';
 
-const MovieModal = ({setShowModal, movie}) => {
+const MovieModal = ({closeModal, movie}) => {
 
     const [open, setOpen] = useState(true);
 
     const handleClose = () => {
         setOpen(false);
-        setShowModal(false);
+        closeModal(false);
     }
 
     let { name, src, description } = movie;

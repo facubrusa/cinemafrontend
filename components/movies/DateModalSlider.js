@@ -25,13 +25,12 @@ const DateModalSlider = () => {
     }, [sessions, dateselected]);
 
     console.log(dates);
-    console.log(showtimes);
+    // console.log(showtimes);
     if(dates.length === 0) return (
         <h4>No showtimes</h4>
     );
     
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const currentDay = new Date().getDate();
 
     return (    
         <>
@@ -41,7 +40,7 @@ const DateModalSlider = () => {
                         key={date}
                         date={date}
                         days={days}
-                        currentDay={currentDay}
+                        dateselected={dateselected}
                         setDate={setDate}
                     />
                 ))}

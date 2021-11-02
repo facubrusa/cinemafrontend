@@ -3,7 +3,8 @@ import {
     GET_SESSIONS,
     SET_MOVIE,
     CLEAR_MOVIE,
-    SET_DATE
+    SET_DATE,
+    SET_TODAY
 } from '../../types/index';
 
 const MovieReducer = (state, action) => {
@@ -27,6 +28,11 @@ const MovieReducer = (state, action) => {
             return {
                 ...state,
                 dateselected: action.payload
+            }
+        case SET_TODAY:
+            return {
+                ...state,
+                dateselected: state.today
             }
         default:
             return state;

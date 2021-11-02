@@ -4,10 +4,15 @@ import MovieContext from '../../context/movies/MovieContext';
 
 const Movie = ({movie}) => {
     const movieContext = useContext(MovieContext);
-    const { selectMovie } = movieContext;
+    const { selectMovie, setToday } = movieContext;
 
     const [showModal, setShowModal] = useState(false);
     let { id, name, src, duration, classification } = movie;
+
+    const closeModal = () => {
+        setToday();
+        setShowModal(true)
+    }
 
     return ( 
         <>
@@ -21,7 +26,7 @@ const Movie = ({movie}) => {
                         className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
                         onClick={() => {
                             selectMovie(id);
-                            setShowModal(true);
+                            closeModal(true);
                         }}
                     >Quick View</a>
                 </div>
@@ -40,7 +45,7 @@ const Movie = ({movie}) => {
         </div>
 
         { showModal ? <MovieModal 
-            setShowModal={setShowModal}
+            closeModal={closeModal}
             movie={movie}
         /> : null }
         
