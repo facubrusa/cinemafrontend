@@ -6,9 +6,9 @@ const MovieModal = ({closeModal, movie}) => {
 
     const [open, setOpen] = useState(true);
 
-    const handleClose = () => {
+    const handleClose = (e) => {
         setOpen(false);
-        closeModal(false);
+        closeModal(e, false);
     }
 
     let { name, src, description } = movie;
@@ -27,7 +27,7 @@ const MovieModal = ({closeModal, movie}) => {
                         <div className="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
                             <button 
                                 className="how-pos3 hov3 trans-04"
-                                onClick={() => handleClose()}
+                                onClick={e => handleClose(e)}
                             >
                                 <img src="images/icons/icon-close2.png" alt="CLOSE" />
                             </button>
