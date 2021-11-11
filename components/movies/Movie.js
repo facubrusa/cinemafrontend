@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Movie = ({movie}) => {
     const movieContext = useContext(MovieContext);
-    const { selectMovie, setToday } = movieContext;
+    const { selectMovie } = movieContext;
 
     const [showModal, setShowModal] = useState(false);
     let { idMovie, name, src, duration, classification } = movie;
@@ -13,7 +13,6 @@ const Movie = ({movie}) => {
 
     const closeModal = (e, show) => {
         e.preventDefault();
-        setToday();
         setShowModal(show)
     }
 

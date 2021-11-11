@@ -12,7 +12,7 @@ const MovieModal = ({closeModal, movie}) => {
     }
 
     let { name, src, description } = movie;
-
+    src = "images/posters/the-addams-family-2.jpg";
     return ( 
         <Modal
             aria-labelledby="modal-movie" 

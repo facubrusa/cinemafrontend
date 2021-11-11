@@ -1,47 +1,43 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import DateItem from './DateItem';
 import ButtonShowtime from './ButtonShowtime';
 import MovieContext from '../../context/movies/MovieContext';
-import { SettingsModalSlider } from '../Sliders';
+import { MoviesSlider } from '../Sliders';
+import { getDates } from '../../util/helper';
 
 const DateModalSlider = () => {
     const movieContext = useContext(MovieContext);
-    const { sessions, dateselected, movieselected, setDate } = movieContext;
+    const { sessions, modaldateselected, movieselected, today, setModalDate } = movieContext;
 
-    const [dates, setDates] = useState([]);
     const [showtimes, setShowtimes] = useState([]);
-
     useEffect(() => {
         if(sessions) {
-            const movieSessions = sessions.filter(session => session.movieId === movieselected);
-            const listDates = [... new Set(movieSessions.map(session => session.date))];
-            const listShowtimes = movieSessions.filter(session => session.date === dateselected);
-            setDates(listDates);
+            const movieSessions = sessions.filter(session => session.idMovie === movieselected);
+            const listShowtimes = movieSessions.filter(session => session.date === modaldateselected);
             setShowtimes(listShowtimes);
         }
-    }, [sessions, dateselected]);
+    }, [modaldateselected]);
 
-    console.log(dates);
+    // console.log(dates);
     // console.log(showtimes);
-    if(dates.length === 0) return (
-        <h4>No showtimes</h4>
-    );
     
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const startDate = new Date(today);
+    const endDate = new Date(today);
+    endDate.setDate(endDate.getDate() + 8);
+    const dates = getDates(startDate, endDate);
 
     return (    
         <>
-            <Slider {...SettingsModalSlider}>
-                { dates.map(date => (
+            <Slider {...MoviesSlider}>
+                { dates.map((date, index) => (
                     <DateItem 
-                        key={date}
+                        key={index}
                         date={date}
                         days={days}
-                        dateselected={dateselected}
-                        setDate={setDate}
+                        modaldateselected={modaldateselected}
+                        setModalDate={setModalDate}
                     />
                 ))}
             </Slider>
@@ -51,7 +47,7 @@ const DateModalSlider = () => {
                     <div className="flex-w flex-m justify-content-center">
                         { showtimes.map(showtime => (
                             <ButtonShowtime 
-                                key={showtime.id}
+                                key={showtime.idSession}
                                 showtime={showtime}
                             />
                         ))}

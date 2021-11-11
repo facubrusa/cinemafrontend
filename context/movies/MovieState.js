@@ -8,7 +8,8 @@ import {
     SET_MOVIE,
     CLEAR_MOVIE,
     SET_DATE,
-    SET_TODAY
+    SET_MODAL_DATE,
+    CLEAR_MODAL_DATE
 } from '../../types/index';
 
 const MovieState = ({children}) => {
@@ -25,6 +26,7 @@ const MovieState = ({children}) => {
         sessions: [],
         movieselected: null,
         dateselected: today,
+        modaldateselected: today,
         today: today
     };
 
@@ -69,9 +71,17 @@ const MovieState = ({children}) => {
         });
     }
 
-    const setToday = () => {
+    const setModalDate = date => {
         dispatch({
-            type: SET_TODAY
+            type: SET_MODAL_DATE,
+            payload: date
+        });
+    }
+
+    const clearModalDate = () => {
+        dispatch({
+            type: CLEAR_MODAL_DATE,
+            payload: date
         });
     }
 
@@ -82,11 +92,13 @@ const MovieState = ({children}) => {
                 sessions: state.sessions,
                 movieselected: state.movieselected,
                 dateselected: state.dateselected,
+                modaldateselected: state.modaldateselected,
                 today: state.today,
                 getSessions,
                 selectMovie,
                 setDate,
-                setToday
+                setModalDate,
+                clearModalDate
             }}
         >
             {children}

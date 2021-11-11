@@ -4,7 +4,8 @@ import {
     SET_MOVIE,
     CLEAR_MOVIE,
     SET_DATE,
-    SET_TODAY
+    SET_MODAL_DATE,
+    CLEAR_MODAL_DATE
 } from '../../types/index';
 
 const MovieReducer = (state, action) => {
@@ -29,10 +30,15 @@ const MovieReducer = (state, action) => {
                 ...state,
                 dateselected: action.payload
             }
-        case SET_TODAY:
+        case SET_MODAL_DATE:
             return {
                 ...state,
-                dateselected: state.today
+                modaldateselected: action.payload
+            }
+        case CLEAR_MODAL_DATE:
+            return {
+                ...state,
+                modaldateselected: state.today
             }
         default:
             return state;

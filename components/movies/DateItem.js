@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DateItem = ({date, days, dateselected, setDate}) => {
+const DateItem = ({date, days, modaldateselected, setModalDate}) => {
     const d = new Date(`${date}T12:00:00`);
     // d.toISOString() output: "2021-11-01T00:00:00.000Z"
     const year = d.getFullYear();
@@ -12,13 +12,13 @@ const DateItem = ({date, days, dateselected, setDate}) => {
     return ( 
         <div>
             <div 
-                className={`slick-title ${dateselected === date && 'date-active'}`} 
-                onClick={() => setDate(`${year}-${month}-${dayMonth}`)}
+                className={`slick-title ${modaldateselected === date && 'date-active'}`} 
+                onClick={() => setModalDate(`${year}-${month}-${dayMonth}`)}
             >
                 <span>{dayName}</span>
                 <span>{dayMonth}</span>
                 <span>{monthName}</span>				
-                {dateselected === date && <div className="slick-underline"></div>}
+                {modaldateselected === date && <div className="slick-underline"></div>}
             </div>
         </div>
     );
