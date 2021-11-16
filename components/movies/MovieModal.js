@@ -41,7 +41,7 @@ const MovieModal = ({closeModal, movie}) => {
                                     </div>
                                 </div>
 
-                                <div className="col-sm-12 col-md-6 col-lg-6 p-b-30 text-center">
+                                <div className="col-sm-12 col-md-6 col-lg-6 p-b-20 text-center">
                                     <div className="p-r-50 p-t-5 p-lr-0-lg">
                                         <h4 className="ltext-102 cl2 js-name-detail p-b-14">
                                             {name}

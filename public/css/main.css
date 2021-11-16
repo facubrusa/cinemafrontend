@@ -286,11 +286,18 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   align-items: center;
   height: 65%;
   margin-right: 55px;
+  align-items: end;
 }
 
 .logo img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.logo span {
+  color: #6c7ae0;
+  font-size: 12px;
+  margin-left: 2px;
 }
 
 
@@ -531,13 +538,14 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 /*------------------------------------------------------------------
 [ Logo mobile ]*/
 .logo-mobile {
-  display: block;
+  display: flex;
   position: relative;
   height: 80%;
   padding-right: 25px;
   -webkit-flex-grow: 1;
   -moz-flex-grow: 1;
   flex-grow: 1;
+  align-items: end;
 }
 
 .logo-mobile img {
@@ -548,6 +556,12 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   left: 0; 
   bottom: 0;
   margin: auto;
+}
+
+.logo-mobile span {
+  color: #6c7ae0;
+  font-size: 12px;
+  margin-left: 2px;
 }
 
 
@@ -1488,6 +1502,12 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   text-transform: uppercase;
 }
 
+.mtext-115 {
+  font-family: Poppins-SemiBold;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 
 /*//////////////////////////////////////////////////////////////////
 [ L-Text >= 26 ]*/
@@ -2359,7 +2379,6 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   .w-full-xl {width: 100%;}
 
   /*---------------------------------------------*/
-
 }
 
 
@@ -2474,8 +2493,13 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   .respon7 {
     padding-left: 60px;
   }
-
   
+}
+
+@media (min-width: 575px) {
+  .min-w-50 {
+    width: 50%;
+  }
 }
 
 

@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import MovieModal from './MovieModal';
-import MovieContext from '../../context/movies/MovieContext';
 import Link from 'next/link';
+import MovieContext from '../../context/movies/MovieContext';
 
-const Movie = ({movie}) => {
+const Movie = ({movie, sessions, dateselected, selectMovie}) => {
     const movieContext = useContext(MovieContext);
-    const { selectMovie } = movieContext;
+    const { clearModalDate } = movieContext;
 
     const [showModal, setShowModal] = useState(false);
     let { idMovie, name, src, duration, classification } = movie;
@@ -14,7 +14,11 @@ const Movie = ({movie}) => {
     const closeModal = (e, show) => {
         e.preventDefault();
         setShowModal(show)
+        clearModalDate();
     }
+
+    const movieSessions = sessions.filter(session => session.idMovie === idMovie);
+    const listShowtimes = movieSessions.filter(session => session.date === dateselected);
 
     return ( 
         <>
@@ -33,14 +37,27 @@ const Movie = ({movie}) => {
                     >Quick View</a>
                 </div>
 
-                <div className="block2-txt flex-w flex-t p-t-14">
-                    <div className="block2-txt-child1 flex-col-l ">
+                <div className="p-t-14">
+                    <div className="flex-col-l ">
                         <Link href={`/movie-detail/${idMovie}`}>
                             <a className="mtext-114 cl2 hov-cl1 trans-04 p-b-6">{name}</a>
                         </Link>
-                        <p className="stext-102 cl2">
+                        <p className="mtext-115 cl3">
                             {`${classification} | ${duration} MIN`}
                         </p>
+                        { listShowtimes.length > 0 ? (
+                            <div className="d-flex justify-content-center">
+                                <div className="flex-w flex-sb-m py-2 list-showtime">
+                                    {listShowtimes.map((showtime, index) => (
+                                        <button
+                                            key={index}
+                                            className="mtext-101 cl0 bg1 bor1 size-104 hov-btn1 trans-04">{showtime.time.substr(0, 5)}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : null }
+                        
                     </div>
                 </div>
             </div>

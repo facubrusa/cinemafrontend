@@ -1,27 +1,20 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Slider from "react-slick";
 import DateItem from './DateItem';
-import ButtonShowtime from './ButtonShowtime';
 import MovieContext from '../../context/movies/MovieContext';
 import { MoviesSlider } from '../Sliders';
 import { getDates } from '../../util/helper';
 
 const DateModalSlider = () => {
     const movieContext = useContext(MovieContext);
-    const { sessions, modaldateselected, movieselected, today, setModalDate } = movieContext;
+    const { modaldateselected, movieselected, today, moviesessions, setModalDate, getMovieSessions } = movieContext;
 
-    const [showtimes, setShowtimes] = useState([]);
     useEffect(() => {
-        if(sessions) {
-            const movieSessions = sessions.filter(session => session.idMovie === movieselected);
-            const listShowtimes = movieSessions.filter(session => session.date === modaldateselected);
-            setShowtimes(listShowtimes);
-        }
+        getMovieSessions(modaldateselected, movieselected);
     }, [modaldateselected]);
 
-    // console.log(dates);
-    // console.log(showtimes);
-    
+    const showtimes = moviesessions.filter(session => session.date === modaldateselected);
+
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const startDate = new Date(today);
     const endDate = new Date(today);
@@ -43,17 +36,18 @@ const DateModalSlider = () => {
             </Slider>
 
             { showtimes.length > 0 ? (
-                <div className="flex-w flex-sb-m p-b-10">
-                    <div className="flex-w flex-m justify-content-center">
-                        { showtimes.map(showtime => (
-                            <ButtonShowtime 
-                                key={showtime.idSession}
-                                showtime={showtime}
-                            />
+                <div className="d-flex justify-content-center">
+                    <div className="flex-w flex-sb-m py-2 list-showtime">
+                        { showtimes.map((showtime, index) => (
+                            <button
+                                key={index}
+                                className="mtext-101 cl0 bg1 bor1 size-104 hov-btn1 trans-04"
+                            >{showtime.time.substr(0, 5)}</button>
                         ))}
                     </div>
                 </div>
-            ) : null }
+                    
+            ) : <h6 className="mtext-112 cl2 text-center mt-3">There's no showtimes :c</h6> }
 
             
         </>

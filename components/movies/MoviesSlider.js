@@ -32,13 +32,12 @@ function SamplePrevArrow(props) {
 const MoviesSlider = () => {
     // Extract the movies from initial state
     const movieContext = useContext(MovieContext);
-    const { movies, sessions, dateselected, getMovies, getSessions } = movieContext;
+    const { movies, sessions, dateselected, getSessions, selectMovie } = movieContext;
 
     useEffect(() => {
-        // getMovies(dateselected);
         getSessions(dateselected);
     }, [dateselected]);
-
+    
     let infiniteStatus = (movies.length > 3) ? true : false;
     const settings = {
         infinite: infiniteStatus,
@@ -97,6 +96,9 @@ const MoviesSlider = () => {
                         <Movie 
                             key={movie.idMovie}
                             movie={movie}
+                            sessions={sessions}
+                            dateselected={dateselected}
+                            selectMovie={selectMovie}
                         />
                     ))}
                 </Slider>

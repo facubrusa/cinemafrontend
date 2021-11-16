@@ -9,7 +9,8 @@ import {
     CLEAR_MOVIE,
     SET_DATE,
     SET_MODAL_DATE,
-    CLEAR_MODAL_DATE
+    CLEAR_MODAL_DATE,
+    GET_MOVIE_SESSIONS
 } from '../../types/index';
 
 const MovieState = ({children}) => {
@@ -24,6 +25,7 @@ const MovieState = ({children}) => {
     const initialState = {
         movies: [],
         sessions: [],
+        moviesessions: [],
         movieselected: null,
         dateselected: today,
         modaldateselected: today,
@@ -34,7 +36,7 @@ const MovieState = ({children}) => {
 
     // Get the sessions with the movies
     const getSessions = async (date) => {
-        const params  = { date: date }
+        const params  = { date: date };
 
         try {
             const response = await clientAxios.get(`/api/sessions`, { params });
@@ -48,6 +50,24 @@ const MovieState = ({children}) => {
                 payload: response.data.movies
             });
 
+        } catch (error) {
+            console.log(error.response);
+            /* dispatch({
+                type: ERROR_CREATE_LINK,
+                payload: error.response.data.msg
+            }); */
+        }
+    }
+
+    const getMovieSessions = async (date, idMovie) => {
+        const params  = { date, idMovie };
+
+        try {
+            const response = await clientAxios.get(`/api/sessions`, { params });
+            dispatch({
+                type: GET_MOVIE_SESSIONS,
+                payload: response.data.sessions
+            });
         } catch (error) {
             console.log(error.response);
             /* dispatch({
@@ -80,8 +100,7 @@ const MovieState = ({children}) => {
 
     const clearModalDate = () => {
         dispatch({
-            type: CLEAR_MODAL_DATE,
-            payload: date
+            type: CLEAR_MODAL_DATE
         });
     }
 
@@ -94,11 +113,13 @@ const MovieState = ({children}) => {
                 dateselected: state.dateselected,
                 modaldateselected: state.modaldateselected,
                 today: state.today,
+                moviesessions: state.moviesessions,
                 getSessions,
                 selectMovie,
                 setDate,
                 setModalDate,
-                clearModalDate
+                clearModalDate,
+                getMovieSessions
             }}
         >
             {children}
