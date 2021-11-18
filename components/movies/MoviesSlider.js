@@ -97,7 +97,6 @@ const MoviesSlider = () => {
                             key={movie.idMovie}
                             movie={movie}
                             sessions={sessions}
-                            dateselected={dateselected}
                             selectMovie={selectMovie}
                         />
                     ))}

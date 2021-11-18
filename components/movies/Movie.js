@@ -3,9 +3,9 @@ import MovieModal from './MovieModal';
 import Link from 'next/link';
 import MovieContext from '../../context/movies/MovieContext';
 
-const Movie = ({movie, sessions, dateselected, selectMovie}) => {
+const Movie = ({movie, sessions, selectMovie}) => {
     const movieContext = useContext(MovieContext);
-    const { clearModalDate } = movieContext;
+    const { dateselected, setModalDate, clearModalDate } = movieContext;
 
     const [showModal, setShowModal] = useState(false);
     let { idMovie, name, src, duration, classification } = movie;
@@ -13,8 +13,8 @@ const Movie = ({movie, sessions, dateselected, selectMovie}) => {
 
     const closeModal = (e, show) => {
         e.preventDefault();
-        setShowModal(show)
-        clearModalDate();
+        (show) ? setModalDate(dateselected) : clearModalDate();
+        setShowModal(show);   
     }
 
     const movieSessions = sessions.filter(session => session.idMovie === idMovie);

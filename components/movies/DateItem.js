@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const DateItem = ({date, days, modaldateselected, setModalDate}) => {
+const DateItem = ({index, date, days, modaldateselected, setModalDate, handleSlider}) => {
     const d = new Date(`${date}T12:00:00`);
     // d.toISOString() output: "2021-11-01T00:00:00.000Z"
     const year = d.getFullYear();
@@ -8,6 +8,10 @@ const DateItem = ({date, days, modaldateselected, setModalDate}) => {
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const dayMonth = String(d.getDate()).padStart(2, '0');
     const dayName = days[d.getDay()];
+
+    useEffect(() => {
+        if(modaldateselected === date) handleSlider(index);
+    }, []);
 
     return ( 
         <div>

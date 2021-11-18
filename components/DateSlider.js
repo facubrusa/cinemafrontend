@@ -13,7 +13,7 @@ const DateSlider = () => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const startDate = new Date(today);
     const endDate = new Date(today);
-    endDate.setDate(endDate.getDate() + 8);
+    endDate.setDate(endDate.getDate() + 7);
     const dates = getDates(startDate, endDate);
 
     return (

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import Slider from "react-slick";
 import DateItem from './DateItem';
 import MovieContext from '../../context/movies/MovieContext';
@@ -18,19 +18,27 @@ const DateModalSlider = () => {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const startDate = new Date(today);
     const endDate = new Date(today);
-    endDate.setDate(endDate.getDate() + 8);
+    endDate.setDate(endDate.getDate() + 7);
     const dates = getDates(startDate, endDate);
+
+    const sliderRef = useRef();
+
+    const handleSlider = index => {
+        sliderRef.current.slickGoTo(index);
+    };
 
     return (    
         <>
-            <Slider {...MoviesSlider}>
+            <Slider {...MoviesSlider} ref={sliderRef}>
                 { dates.map((date, index) => (
                     <DateItem 
                         key={index}
+                        index={index}
                         date={date}
                         days={days}
                         modaldateselected={modaldateselected}
                         setModalDate={setModalDate}
+                        handleSlider={handleSlider}
                     />
                 ))}
             </Slider>
