@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import MovieContext from '../context/movies/MovieContext';
 import DateItem from './DateItem';
 import { getDates } from '../util/helper';
-import { ModalMovieSlider } from './Sliders';
+import { MainDateSlider } from './Sliders';
 
 const DateSlider = () => {
     const movieContext = useContext(MovieContext);
@@ -17,7 +17,7 @@ const DateSlider = () => {
     const dates = getDates(startDate, endDate);
 
     return (
-      <Slider {...ModalMovieSlider}>
+      <Slider {...MainDateSlider}>
         { dates.map((date, index) => (
             <DateItem 
                 key={index}

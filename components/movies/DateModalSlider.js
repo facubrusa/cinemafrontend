@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import Slider from "react-slick";
 import DateItem from './DateItem';
 import MovieContext from '../../context/movies/MovieContext';
-import { MoviesSlider } from '../Sliders';
+import { ModalDateSlider } from '../Sliders';
 import { getDates } from '../../util/helper';
+import Link from 'next/link';
 
 const DateModalSlider = () => {
     const movieContext = useContext(MovieContext);
@@ -26,10 +27,10 @@ const DateModalSlider = () => {
     const handleSlider = index => {
         sliderRef.current.slickGoTo(index);
     };
-
+    
     return (    
         <>
-            <Slider {...MoviesSlider} ref={sliderRef}>
+            <Slider {...ModalDateSlider} ref={sliderRef}>
                 { dates.map((date, index) => (
                     <DateItem 
                         key={index}
@@ -47,15 +48,23 @@ const DateModalSlider = () => {
                 <div className="d-flex justify-content-center">
                     <div className="flex-w flex-sb-m py-2 list-showtime">
                         { showtimes.map((showtime, index) => (
-                            <button
+                            <Link 
+                                href={`https://v2-0.cinexo.com.ar/Comprar.php?fid=${showtime.idSession}&cid=122200`}
+                                target="_blank" rel="noopener noreferrer"
                                 key={index}
-                                className="mtext-101 cl0 bg1 bor1 size-104 hov-btn1 trans-04"
-                            >{showtime.time.substr(0, 5)}</button>
+                                passHref
+                            >        
+                                <button
+                                    target="_blank" rel="noreferrer"
+                                    className="mtext-101 cl0 bg1 bor1 size-104 hov-btn1 trans-04"
+                                >{showtime.time.substr(0, 5)}</button>
+                            </Link>
+
                         ))}
                     </div>
                 </div>
                     
-            ) : <h6 className="mtext-112 cl2 text-center mt-3">There's no showtimes :c</h6> }
+            ) : <h6 className="mtext-112 cl2 text-center mt-3">There're no showtimes :c</h6> }
 
             
         </>

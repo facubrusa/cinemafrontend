@@ -2,11 +2,11 @@ import {
     GET_MOVIES,
     GET_SESSIONS,
     SET_MOVIE,
-    CLEAR_MOVIE,
     SET_DATE,
     SET_MODAL_DATE,
     CLEAR_MODAL_DATE,
-    GET_MOVIE_SESSIONS
+    GET_MOVIE_SESSIONS,
+    GET_PREMIERE_MOVIES
 } from '../../types/index';
 
 const MovieReducer = (state, action) => {
@@ -45,6 +45,11 @@ const MovieReducer = (state, action) => {
             return {
                 ...state,
                 moviesessions: action.payload
+            }
+        case GET_PREMIERE_MOVIES:
+            return {
+                ...state,
+                premieremovies: action.payload
             }
         default:
             return state;

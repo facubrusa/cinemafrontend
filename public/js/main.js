@@ -51,17 +51,5 @@
             });    
         }
     });
-    
-    /*==================================================================
-    [ Show modal1 ]*/
-
-    /* $('.js-show-modal1').click(e => {
-        e.preventDefault();
-        $('.js-modal1').addClass('show-modal1');
-    });
-
-    $('.js-hide-modal1').click(() => {
-        $('.js-modal1').removeClass('show-modal1');
-    }); */
 
 })(jQuery);

@@ -29,7 +29,7 @@ const Movie = ({movie, sessions, selectMovie}) => {
 
                     <a 
                         href="#" 
-                        className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
+                        className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn3 p-lr-15 trans-04 js-show-modal1"
                         onClick={(e) => {
                             selectMovie(idMovie);
                             closeModal(e, true);
@@ -49,10 +49,14 @@ const Movie = ({movie, sessions, selectMovie}) => {
                             <div className="d-flex justify-content-center">
                                 <div className="flex-w flex-sb-m py-2 list-showtime">
                                     {listShowtimes.map((showtime, index) => (
-                                        <button
+                                        <Link
+                                            href={`https://v2-0.cinexo.com.ar/Comprar.php?fid=${showtime.idSession}&cid=122200`}
                                             key={index}
-                                            className="mtext-101 cl0 bg1 bor1 size-104 hov-btn1 trans-04">{showtime.time.substr(0, 5)}
-                                        </button>
+                                        >
+                                            <button
+                                                className="mtext-101 cl0 bg1 bor1 size-104 hov-btn1 trans-04">{showtime.time.substr(0, 5)}
+                                            </button>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>

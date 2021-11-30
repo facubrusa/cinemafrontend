@@ -6,11 +6,11 @@ import {
     GET_MOVIES,
     GET_SESSIONS,
     SET_MOVIE,
-    CLEAR_MOVIE,
     SET_DATE,
     SET_MODAL_DATE,
     CLEAR_MODAL_DATE,
-    GET_MOVIE_SESSIONS
+    GET_MOVIE_SESSIONS,
+    GET_PREMIERE_MOVIES
 } from '../../types/index';
 
 const MovieState = ({children}) => {
@@ -24,6 +24,7 @@ const MovieState = ({children}) => {
 
     const initialState = {
         movies: [],
+        premieremovies: [],
         sessions: [],
         moviesessions: [],
         movieselected: null,
@@ -77,6 +78,22 @@ const MovieState = ({children}) => {
         }
     }
 
+    const getPremiereMovies = async () => {
+        try {
+            const response = await clientAxios.get(`/api/movies/premiere`);
+            dispatch({
+                type: GET_PREMIERE_MOVIES,
+                payload: response.data.movies
+            });
+        } catch (error) {
+            console.log(error.response);
+            /* dispatch({
+                type: ERROR_CREATE_LINK,
+                payload: error.response.data.msg
+            }); */
+        }
+    }
+
     const selectMovie = movieId => {
         dispatch({
             type: SET_MOVIE,
@@ -108,6 +125,7 @@ const MovieState = ({children}) => {
         <MovieContext.Provider
             value={{
                 movies: state.movies,
+                premieremovies: state.premieremovies,
                 sessions: state.sessions,
                 movieselected: state.movieselected,
                 dateselected: state.dateselected,
@@ -119,7 +137,8 @@ const MovieState = ({children}) => {
                 setDate,
                 setModalDate,
                 clearModalDate,
-                getMovieSessions
+                getMovieSessions,
+                getPremiereMovies
             }}
         >
             {children}

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-export const MoviesSlider = {
+export const ModalDateSlider = {
   infinite: false,
   speed: 300,
   autoplay: false,
@@ -43,8 +43,7 @@ export const MoviesSlider = {
   ]
 };
 
-export const ModalMovieSlider = {
-  dots: false,
+export const MainDateSlider = {
   infinite: false,
   speed: 300,
   arrows: true,
@@ -53,6 +52,88 @@ export const ModalMovieSlider = {
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
   responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 6,
+          slidesToScroll: 6
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      }
+  ]
+}
+
+export const MainMoviesSlider = {
+  infinite: false,
+  speed: 600,
+  autoplay: false,
+  autoplaySpeed: 6000,
+  arrows: true,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />,
+  responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4
+        }
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+  ]
+}
+
+export const DetailDateSlider = {
+  infinite: false,
+  speed: 300,
+  arrows: true,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />,
+  responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      },
       {
         breakpoint: 992,
         settings: {
